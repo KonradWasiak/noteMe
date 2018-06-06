@@ -1,0 +1,25 @@
+# Same for HTTPS:
+RewriteCond %{HTTPS} on
+RewriteCond %{HTTP_HOST} !^(www\.)?noteme\.pl$ [NC]
+RewriteRule .* https://noteme.pl%{REQUEST_URI} [R=301,L]
+
+# 301 Redirect URLs.
+Redirect 301 /localhost/notemekurwa /localhost/notemekurwa
+
+#301 Redirect Entire Directory.
+RedirectMatch 301 ^/localhost/notemekurwa/(.*)$ /localhost/notemekurwa/$1
+
+# Stop hotlinking.
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} ^https?://([^/]+)/ [NC]
+RewriteCond %1#%{HTTP_HOST} !^(.+)#\1$
+RewriteRule \.(jpg|jpeg|png|gif|swf|svg)$ - [NC,F,L]
+
+# Add Caching.
+<FilesMatch ".(ico|jpg|jpeg|png|gif|js|css|swf)$">
+    Header set Cache-Control "max-age=60"
+</FilesMatch>
+
+# Custom error pages.
+ErrorDocument 404 404.php
+ErrorDocument 403 403.php
