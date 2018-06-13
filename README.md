@@ -4,6 +4,7 @@ noteMe - online time organizer
 My contribution to the project:
 - Front-end:
   - HTML, CSS, Bootstrap 
+  
 - Back-end:
   -PHP scripts:
     -displaying, editing data of groups and users
